@@ -206,7 +206,8 @@ uv run pre-commit run --all-files
 ### CD — `.github/workflows/cd.yml`
 
 Сначала целиком прогоняется CI, и только после его успеха образ собирается и публикуется в
-Docker Hub.
+Docker Hub. Образ собирается для двух платформ — `linux/amd64` и `linux/arm64` (Apple Silicon,
+ARM-серверы), Docker сам скачивает подходящий вариант.
 
 | Событие | Теги образа |
 |---|---|
