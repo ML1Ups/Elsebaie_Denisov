@@ -1,0 +1,28 @@
+name: README auto-close
+
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  autoclose:
+    name: Close PR changing README
+    if: ${{ !startsWith(github.head_ref, 'docs/') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close pull request if it changes README.md
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          files=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" --paginate --jq '.[].filename')
+          if grep -qx README.md <<< "$files"; then
+            gh pr close "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --comment "Blocked by README guard"
+            echo "::error::README.md in main can only be changed from docs/* branches, not from $GITHUB_HEAD_REF"
+            exit 1
+          fi
