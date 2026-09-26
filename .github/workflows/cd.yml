@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  IMAGE_NAME: elsebaie_denisov
+  IMAGE_NAME: resume-classifier
 
 jobs:
   ci:
