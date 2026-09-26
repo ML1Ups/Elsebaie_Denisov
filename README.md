@@ -49,7 +49,7 @@ MLOps-система классификации резюме соискател�
 - `main` — актуальный код; изменения попадают в него только через pull request.
 - Push в ветку и pull request запускают CI: линтер, тесты, smoke-тест.
 - Merge в `main` и тег версии `vX.Y.Z` запускают CD: образ публикуется в Docker Hub —
-  [`asebaie/elsebaie_denisov`](https://hub.docker.com/r/asebaie/elsebaie_denisov).
+  [`asebaie/resume-classifier`](https://hub.docker.com/r/asebaie/resume-classifier).
 - Версия проекта хранится в `pyproject.toml`, релиз — git-тег с той же версией.
 - README в `main` меняется только из веток `docs/...`: у остальных веток свой README, и CI не
   даст случайно перенести его в `main`.
